@@ -82,7 +82,7 @@ func tanasinnize(th float64, r rune) string {
 }
 
 func main() {
-	var option = option{input: os.Stdin, th: []float64{0.8}, isHelp: false}
+	var option = option{input: nil, th: []float64{0.8}, isHelp: false}
 	rand.Seed(time.Now().UTC().UnixNano())
 
 	for i := 1; i < len(os.Args); i++ {
