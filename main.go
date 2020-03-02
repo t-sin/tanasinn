@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math/rand"
 	"os"
+	"strconv"
+	"time"
 )
 
 func prinHelp() {
@@ -16,10 +19,34 @@ func prinHelp() {
 type option struct {
 	input * os.File
 	isHelp bool
+	th float32
+}
+
+
+func tanasinnize(th float32, r rune) string {
+	s := []string{
+		"∴",
+		"∵",
+		"∴∵",
+		")",
+		"(･)",
+		"(･",
+		"∴･",
+		"∴",
+        "･･",
+        "･:",
+        "..",
+	}
+	if th < rand.Float32() {
+		return fmt.Sprintf("%s", s[int(rand.Uint32()) % len(s)])
+	} else {
+		return fmt.Sprintf("%c", r)
+	}
 }
 
 func main() {
-	var option option
+	var option = option{input: os.Stdin, th: 0.7, isHelp: false}
+	rand.Seed(time.Now().UTC().UnixNano())
 
 	for i := 1; i < len(os.Args); i++ {
 
@@ -32,6 +59,14 @@ func main() {
 				switch os.Args[i][1] {
 				case 'h':
 					option.isHelp = true
+				case 't':
+					i++
+					f, err := strconv.ParseFloat(os.Args[i], 32)
+					if err != nil {
+						log.Fatal(err)
+						os.Exit(1)
+					}
+					option.th = float32(f)
 				}
 			}
 
@@ -56,6 +91,6 @@ func main() {
 		if err == io.EOF {
 			break
 		}
-		fmt.Printf("%c", r)
+		fmt.Printf("%s", tanasinnize(option.th, r))
 	}
 }
