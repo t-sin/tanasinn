@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func prinHelp() {
+func printHelp() {
 	fmt.Println("tanasinn...")
 	fmt.Println("usage: tanasin [OPTION] [FILE]")
 }
@@ -95,7 +95,8 @@ func main() {
 			} else {
 				switch os.Args[i][1] {
 				case 'h':
-					option.isHelp = true
+					printHelp()
+					os.Exit(0)
 				case 't':
 					i++
 					ths, err := parseThreasholds(os.Args[i])
@@ -104,6 +105,7 @@ func main() {
 						os.Exit(1)
 					}
 					option.th = ths
+					break
 				}
 			}
 
