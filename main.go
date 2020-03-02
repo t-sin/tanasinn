@@ -12,6 +12,25 @@ import (
 	"time"
 )
 
+func printTanasinn() {
+	fmt.Println("")
+	fmt.Println("　　　　　　　　　　t")
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("　　　　n　　　　　　　　　　　　　a")
+	fmt.Println("　　　 　 　＿＿＿＿＿＿＿＿")
+	fmt.Println("　　　 　　 　 ＿＿＿＿＿＿／　 ／")
+	fmt.Println("　　n　.　　＼　 ＼　○ .／　 ／　　　n")
+	fmt.Println("　　　　　　　 .＼　 ＼／　 ／")
+	fmt.Println("　　　　　 　 　 .＼　 ＼／")
+	fmt.Println("　　　　i　　　　　 .＼　　　　　　a　 ..")
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("　　　　　　　　　　　s")
+	fmt.Println("")
+}
+
 func printHelp() {
 	fmt.Println("tanasinn...")
 	fmt.Println("usage: tanasin [OPTION] [FILE]")
@@ -108,6 +127,9 @@ func main() {
 					break
 				}
 			}
+
+		} else if os.Args[i] == "tanasinn" {
+			printTanasinn()
 
 		} else if option.input == nil {
 			f, err := os.OpenFile(os.Args[i], os.O_RDONLY, 0x600)
