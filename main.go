@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
+	"log"
 	"os"
 )
 
@@ -35,13 +38,24 @@ func main() {
 		} else if option.input == nil {
 			f, err := os.OpenFile(os.Args[i], os.O_RDONLY, 0x600)
 			if err != nil {
-				fmt.Printf("cannot open `%s`\n", os.Args[i])
+				log.Fatal("cannot open `%s`\n", os.Args[i])
 				os.Exit(1)
 			}
 			option.input = f
+			defer f.Close()
 		}
 	}
 
-	fmt.Println(option)
-}
+	if option.input == nil {
+		option.input = os.Stdin
+	}
 
+	reader := bufio.NewReader(option.input)
+	for true {
+		r, _, err := reader.ReadRune()
+		if err == io.EOF {
+			break
+		}
+		fmt.Printf("%c", r)
+	}
+}
